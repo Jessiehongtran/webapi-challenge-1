@@ -12,8 +12,9 @@ server.get('/', (req, res) => {
 });
 
 const projectData = require('./data/helpers/projectModel')
+const actionData = require('./data/helpers/actionModel')
 
-//GET PROJECT: '/api/projects'
+//GET PROJECT
 server.get('/api/projects', (req, res) => {
     projectData
             .get()
@@ -24,13 +25,13 @@ server.get('/api/projects', (req, res) => {
     
 })
 
-//POST PROJECT: '/api/projects'
+//POST PROJECT
 server.post('/api/projects', (req,res) => {
     const newProject = req.body;
-    const id = req.params
-    console.log(id)
+    // const id = req.params.id
+    // console.log(id)
     const project = {
-        project_id: id,
+        // project_id: id,
         name: newProject.name,
         description: newProject.description,
         completed: newProject.completed
@@ -43,7 +44,7 @@ server.post('/api/projects', (req,res) => {
             .catch(err => res.status(500).json({message: "failed to add project"}))
 })
 
-//GET PROJECT WITH ID: '/api/projects/:id'
+//GET PROJECT WITH ID
 server.get('/api/projects/:id', (req, res) => {
     projectData
             .get(req.params.id)
@@ -56,7 +57,7 @@ server.get('/api/projects/:id', (req, res) => {
             })
 })
 
-//PUT PROJECT: '/api/projects/:id'
+//UPDATE PROJECT
 server.put('/api/projects/:id', (req,res) => {
     const id = req.params.id;
     const changes = req.body;
@@ -73,22 +74,8 @@ server.put('/api/projects/:id', (req,res) => {
 
 })
 
-// server.put('api/projects/:id', (req, res) => {
-//     projectData
-//     .get()
-//     .then(projects => {
-//         const project = projects.find(h => h.id == req.params.id);
-//         if (!project) {
-//             res.status(404).json({ message: 'Project does not exist' });
-//           } else {
-//             Object.assign(project, req.body);
-//             res.status(200).json(project);
-//           }
-//     })  
-//   });
 
-
-//DELETE PROJECT: '/api/projects/:id'
+//DELETE PROJECT
 server.delete('/api/projects/:id', (req,res) =>{
     projectData
             .remove(req.params.id)
@@ -101,7 +88,7 @@ server.delete('/api/projects/:id', (req,res) =>{
         
 })
 
-//GET ACTIONS
+//GET PROJECT ACTIONS
 server.get('/api/projects/:id/actions', (req,res) => {
     projectData
             .getProjectActions(req.params.id)
@@ -111,5 +98,39 @@ server.get('/api/projects/:id/actions', (req,res) => {
             .catch(err => {
                 res.status(500).json({message: "failed to get actions"})
             })
+})
+
+//GET A SPECIFIC PROJECT ACTION
+server.get('/api/projects/:id/actions/:id', (req,res) => {
+
+})
+
+//POST PROJECT ACTIONS
+server.post('/api/projects/:id/actions', (req,res) => {
+    const newAction = req.body
+    const id = req.params.id
+    console.log(id)
+    const action = {
+        project_id: id,
+        description: newAction.description,
+        note: newAction.note,
+        completed: newAction.completed
+    }
+    console.log(action)
+    actionData
+            .insert(action)
+            .then(newId => res.status(200).json(newId))
+            .catch(err => res.status(500).json({message: "failed to add action"}))
+
+})
+
+//UPDATE AN ACTION
+server.post('/api/projects/:id/actions/:id', (req,res) => {
+
+})
+
+//DELETE AN ACTION
+server.post('/api/projects/:id/actions/:id', (req,res) => {
+
 })
 
