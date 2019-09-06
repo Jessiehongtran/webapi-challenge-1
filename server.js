@@ -57,7 +57,7 @@ server.get('/api/projects/:id', (req, res) => {
             })
 })
 
-//UPDATE PROJECT
+//UPDATE A PROJECT
 server.put('/api/projects/:id', (req,res) => {
     const id = req.params.id;
     const changes = req.body;
@@ -75,7 +75,7 @@ server.put('/api/projects/:id', (req,res) => {
 })
 
 
-//DELETE PROJECT
+//DELETE A PROJECT
 server.delete('/api/projects/:id', (req,res) =>{
     projectData
             .remove(req.params.id)
@@ -88,7 +88,7 @@ server.delete('/api/projects/:id', (req,res) =>{
         
 })
 
-//GET PROJECT ACTIONS
+//GET LIST OF ACTIONS OF A PROJECT
 server.get('/api/projects/:id/actions', (req,res) => {
     projectData
             .getProjectActions(req.params.id)
