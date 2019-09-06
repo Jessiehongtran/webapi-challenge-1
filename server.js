@@ -151,6 +151,13 @@ server.put('/api/projects/:id/actions/:id', (req,res) => {
 
 //DELETE AN ACTION
 server.delete('/api/projects/:id/actions/:id', (req,res) => {
-    
+    actionData
+            .remove(req.params.id)
+            .then(action => {
+                res.status(200).json({ message: "Action deleted" });
+              })
+            .catch(err => {
+                res.status(500).json({message: "failed to delete action"})
+            })
 })
 
