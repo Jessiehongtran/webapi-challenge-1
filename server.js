@@ -134,7 +134,19 @@ server.post('/api/projects/:id/actions', (req,res) => {
 
 //UPDATE AN ACTION
 server.put('/api/projects/:id/actions/:id', (req,res) => {
+    const id = req.params.id;
+    console.log(id)
+    const changes = req.body;
 
+    actionData
+            .update(id, changes)
+            .then(action => {
+                res.status(200).json(action)
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({message: "failed to update action"})
+            })
 })
 
 //DELETE AN ACTION
