@@ -102,7 +102,15 @@ server.get('/api/projects/:id/actions', (req,res) => {
 
 //GET A SPECIFIC PROJECT ACTION
 server.get('/api/projects/:id/actions/:id', (req,res) => {
-
+    actionData
+    .get(req.params.id)
+    .then(action => {
+        res.status(200).json(action)
+    }
+    )
+    .catch(err => {
+        res.status(500).json({message: "failed to get projects"})
+    })
 })
 
 //POST PROJECT ACTIONS
@@ -125,12 +133,12 @@ server.post('/api/projects/:id/actions', (req,res) => {
 })
 
 //UPDATE AN ACTION
-server.post('/api/projects/:id/actions/:id', (req,res) => {
+server.put('/api/projects/:id/actions/:id', (req,res) => {
 
 })
 
 //DELETE AN ACTION
-server.post('/api/projects/:id/actions/:id', (req,res) => {
-
+server.delete('/api/projects/:id/actions/:id', (req,res) => {
+    
 })
 
