@@ -28,17 +28,45 @@ server.get('/api/projects', (req, res) => {
 //POST: '/api/projects'
 server.post('/api/projects', (req,res) => {
     const newProject = req.body;
-    // const {id} = req.params
-    // console.log(id)
+    const id = req.params.id
+    console.log(id)
     const project = {
-        // id: id,
+        project_id: id,
         name: newProject.name,
         description: newProject.description,
         completed: newProject.completed
     }
     console.log(project)
+
     projectData
             .insert(project)
             .then(newId => res.status(200).json(newId))
             .catch(err => res.status(500).json({message: "failed to add project"}))
+})
+
+//GET: '/api/projects/:id'
+server.get('/api/projects/:id', (req, res) => {
+    projectData
+            .get(req.params.id)
+            .then(project => {
+                res.status(200).json(project)
+            }
+            )
+})
+
+//PUT: '/api/projects/:id'
+server.put('api/projects/:id', (req,res) => {
+    const {id} = req.params;
+    const changes = req.body;
+
+    projectData
+            .update(id, changes)
+            .then(project => {
+                console.log(project)
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({message: "failed to update project"})
+            })
+
 })
