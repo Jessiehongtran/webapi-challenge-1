@@ -113,7 +113,7 @@ server.post('/api/projects/:id/actions', (req,res) => {
     const action = {
         project_id: id,
         description: newAction.description,
-        note: newAction.note,
+        notes: newAction.notes,
         completed: newAction.completed
     }
     console.log(action)
