@@ -71,3 +71,15 @@ server.put('api/projects/:id', (req,res) => {
 
 })
 
+//DELETE: '/api/projects/:id'
+server.delete('api/projects/:id', (req,res) =>{
+    projectData
+            .remove(req.params.id)
+            .then(project => {
+                res.status(200).json({ message: "Project deleted" });
+              })
+            .catch(err => {
+                res.status(500).json({message: "failed to delete project"})
+            })
+        
+})
