@@ -13,7 +13,7 @@ server.get('/', (req, res) => {
 
 const projectData = require('./data/helpers/projectModel')
 
-//GET: '/api/projects'
+//GET PROJECT: '/api/projects'
 server.get('/api/projects', (req, res) => {
     projectData
             .get()
@@ -24,8 +24,7 @@ server.get('/api/projects', (req, res) => {
     
 })
 
-
-//POST: '/api/projects'
+//POST PROJECT: '/api/projects'
 server.post('/api/projects', (req,res) => {
     const newProject = req.body;
     const id = req.params
@@ -44,7 +43,7 @@ server.post('/api/projects', (req,res) => {
             .catch(err => res.status(500).json({message: "failed to add project"}))
 })
 
-//GET: '/api/projects/:id'
+//GET PROJECT WITH ID: '/api/projects/:id'
 server.get('/api/projects/:id', (req, res) => {
     projectData
             .get(req.params.id)
@@ -54,8 +53,8 @@ server.get('/api/projects/:id', (req, res) => {
             )
 })
 
-//PUT: '/api/projects/:id'
-server.put('api/projects/:id', (req,res) => {
+//PUT PROJECT: '/api/projects/:id'
+server.put('/api/projects/:id', (req,res) => {
     const id = req.params.id;
     const changes = req.body;
 
@@ -71,8 +70,23 @@ server.put('api/projects/:id', (req,res) => {
 
 })
 
-//DELETE: '/api/projects/:id'
-server.delete('api/projects/:id', (req,res) =>{
+// server.put('api/projects/:id', (req, res) => {
+//     projectData
+//     .get()
+//     .then(projects => {
+//         const project = projects.find(h => h.id == req.params.id);
+//         if (!project) {
+//             res.status(404).json({ message: 'Project does not exist' });
+//           } else {
+//             Object.assign(project, req.body);
+//             res.status(200).json(project);
+//           }
+//     })  
+//   });
+
+
+//DELETE PROJECT: '/api/projects/:id'
+server.delete('/api/projects/:id', (req,res) =>{
     projectData
             .remove(req.params.id)
             .then(project => {
@@ -83,3 +97,7 @@ server.delete('api/projects/:id', (req,res) =>{
             })
         
 })
+
+//GET ACTION
+server.get('./')
+
