@@ -28,7 +28,7 @@ server.get('/api/projects', (req, res) => {
 //POST: '/api/projects'
 server.post('/api/projects', (req,res) => {
     const newProject = req.body;
-    const id = req.params.id
+    const id = req.params
     console.log(id)
     const project = {
         project_id: id,
@@ -56,13 +56,13 @@ server.get('/api/projects/:id', (req, res) => {
 
 //PUT: '/api/projects/:id'
 server.put('api/projects/:id', (req,res) => {
-    const {id} = req.params;
+    const id = req.params.id;
     const changes = req.body;
 
     projectData
             .update(id, changes)
             .then(project => {
-                console.log(project)
+                res.status(200).json(project)
             })
             .catch(err => {
                 console.log(err);
@@ -70,3 +70,4 @@ server.put('api/projects/:id', (req,res) => {
             })
 
 })
+
